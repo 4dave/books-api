@@ -31,10 +31,7 @@ func GetBook(c *fiber.Ctx) error {
 
 func NewBook(c *fiber.Ctx) error {
 	db := database.DBConn
-
 	book := new(Book)
-
-	// return status 500 if book title is empty
 	if err := c.BodyParser(book); err != nil {
 		c.SendStatus(500)
 	}
@@ -45,7 +42,6 @@ func NewBook(c *fiber.Ctx) error {
 func DeleteBook(c *fiber.Ctx) error {
 	id := c.Params("id")
 	db := database.DBConn
-
 	var book Book
 	db.First(&book, id)
 	if book.Title == "" {
